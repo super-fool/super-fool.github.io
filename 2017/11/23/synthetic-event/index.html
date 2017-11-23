@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="事件系统合成事件(synthetic event)有些元素自身的处理事件都有其默认行为,比如&amp;lt;/a&amp;gt;,在onClick事件中,点击元素会跳转到新页面,而我们有时候需要禁用该行为.在DOM中,我们在事件中return false去禁用该行为.12345&amp;lt;a 	href=&amp;">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React的合成事件与原生事件">
+<meta property="og:url" content="http://yoursite.com/2017/11/23/synthetic-event/index.html">
+<meta property="og:site_name" content="Mr.H Blog">
+<meta property="og:description" content="事件系统合成事件(synthetic event)有些元素自身的处理事件都有其默认行为,比如&amp;lt;/a&amp;gt;,在onClick事件中,点击元素会跳转到新页面,而我们有时候需要禁用该行为.在DOM中,我们在事件中return false去禁用该行为.12345&amp;lt;a 	href=&amp;quot;#&amp;quot; 	onclick=&amp;quot;console.log(&amp;apos;The link w">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-11-23T08:35:06.485Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React的合成事件与原生事件">
+<meta name="twitter:description" content="事件系统合成事件(synthetic event)有些元素自身的处理事件都有其默认行为,比如&amp;lt;/a&amp;gt;,在onClick事件中,点击元素会跳转到新页面,而我们有时候需要禁用该行为.在DOM中,我们在事件中return false去禁用该行为.12345&amp;lt;a 	href=&amp;quot;#&amp;quot; 	onclick=&amp;quot;console.log(&amp;apos;The link w">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/23/synthetic-event/"/>
+
+
+
+
+
+  <title>React的合成事件与原生事件 | Mr.H Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Mr.H Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/23/synthetic-event/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Mr.H">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Mr.H Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React的合成事件与原生事件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T14:26:46+08:00">
+                2017-11-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/React/" itemprop="url" rel="index">
+                    <span itemprop="name">React</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="事件系统"><a href="#事件系统" class="headerlink" title="事件系统"></a>事件系统</h1><h3 id="合成事件-synthetic-event"><a href="#合成事件-synthetic-event" class="headerlink" title="合成事件(synthetic event)"></a>合成事件(synthetic event)</h3><p>有些元素自身的处理事件都有其默认行为,比如<code>&lt;/a&gt;</code>,在<code>onClick</code>事件中,点击元素会跳转到新页面,而我们有时候需要禁用该行为.<br>在DOM中,我们在事件中<code>return false</code>去禁用该行为.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;a </span><br><span class="line">	href=&quot;#&quot; </span><br><span class="line">	onclick=&quot;console.log(&apos;The link was clicked.&apos;); return false&quot;&gt;</span><br><span class="line">  Click me</span><br><span class="line">&lt;/a&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在React中,我们而是使用处理事件中的<code>e</code>参数去调用<code>e.preventDefault()</code>方法来禁用.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function ActionLink() &#123;</span><br><span class="line">	function handleClick(e) &#123;</span><br><span class="line">		e.preventDefault();</span><br><span class="line">		console.log(&apos;The link was clicked.&apos;);</span><br><span class="line">	&#125;</span><br><span class="line">	return (</span><br><span class="line">		&lt;a </span><br><span class="line">			herf=&quot;#&quot; </span><br><span class="line">			onClick=&#123;handleClick&#125;</span><br><span class="line">		&gt;</span><br><span class="line">		Click me</span><br><span class="line">		&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">	);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="React事件系统"><a href="#React事件系统" class="headerlink" title="React事件系统"></a>React事件系统</h3><p>在上述React中传入了一个参数e,这个参数是<code>SyntheticEvent</code>的实例.它是一个封装着浏览器本地事件的跨浏览器的合成事件.<strong>为原生事件的一个自己</strong>,比如<code>stopPropagation()</code>,<code>preventDefault()</code>.只不过这些都是<strong>合成事件</strong>,即<strong>封装事件</strong>:<br>比如<code>stopPropagation()</code>的React封装:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">stopPropagation: function () &#123;</span><br><span class="line">    var event = this.nativeEvent;</span><br><span class="line">    if (!event) &#123;</span><br><span class="line">      return;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if (event.stopPropagation) &#123;</span><br><span class="line">      event.stopPropagation();</span><br><span class="line">    &#125; else if (typeof event.cancelBubble !== &apos;unknown&apos;) &#123;</span><br><span class="line">      // The ChangeEventPlugin registers a &quot;propertychange&quot; event for</span><br><span class="line">      // IE. This event does not support bubbling or cancelling, and</span><br><span class="line">      // any references to cancelBubble throw &quot;Member not found&quot;.  A</span><br><span class="line">      // typeof check of &quot;unknown&quot; circumvents this issue (and is also</span><br><span class="line">      // IE specific).</span><br><span class="line">      event.cancelBubble = true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    this.isPropagationStopped = emptyFunction$1.thatReturnsTrue;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>React的合成事件利用的是事件代理的方式实现的.</strong></p>
+<p>###合成事件不能阻止原生事件,而原生事件可以阻止合成事件<br>举个例子:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">import React,&#123;Component&#125; from &apos;react&apos;;</span><br><span class="line">import ReactDOM from &apos;react-dom&apos;;</span><br><span class="line">import Dad from &apos;./Dad&apos;;</span><br><span class="line">import $ from &apos;jquery&apos;;</span><br><span class="line"></span><br><span class="line">//LV1</span><br><span class="line">class GrandPa extends Component &#123;</span><br><span class="line">	constructor(props) &#123;</span><br><span class="line">		super(props);</span><br><span class="line">		this.state=&#123;</span><br><span class="line">			clickTime:new Date()</span><br><span class="line">		&#125;</span><br><span class="line">		this.handleClick=this.handleClick.bind(this);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	handleClick() &#123;</span><br><span class="line">		this.setState(&#123;</span><br><span class="line">			clickTime:new Date()</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	render() &#123;</span><br><span class="line">		return(</span><br><span class="line">			&lt;div</span><br><span class="line">			onClick=&#123;this.handleClick&#125;&gt;</span><br><span class="line">				&lt;p&gt;GrandPa Clicked At:&#123;this.state.clickTime.toLocaleString()&#125;&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">				&lt;Dad/&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">//LV2</span><br><span class="line">class Dad extends Component &#123;</span><br><span class="line">	constructor(props) &#123;</span><br><span class="line">		super(props);</span><br><span class="line">		this.state=&#123;</span><br><span class="line">			clickTime:new Date()</span><br><span class="line">		&#125;;</span><br><span class="line">		this.handleClick=this.handleClick.bind(this);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	handleClick(e) &#123;</span><br><span class="line">		//e.stopPropagation();</span><br><span class="line">		//e.nativeEvent.stopPropagation();</span><br><span class="line">		this.setState(&#123;</span><br><span class="line">			clickTime:new Date()</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	render() &#123;</span><br><span class="line">		return (</span><br><span class="line">			&lt;div </span><br><span class="line">			  onClick=&#123;this.handleClick&#125;</span><br><span class="line">			&gt;</span><br><span class="line">				&lt;p&gt;Dad Clicked At:&#123;this.state.clickTime.toLocaleString()&#125;.&lt;/p&gt;</span><br><span class="line">				&lt;div id=&quot;jq-sonparent&quot;&gt;</span><br><span class="line">					&lt;Son/&gt;</span><br><span class="line">				&lt;/div&gt;</span><br><span class="line">			&lt;/div&gt;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//LV3</span><br><span class="line">class Son extends Component &#123;</span><br><span class="line">	constructor(props) &#123;</span><br><span class="line">		super(props);</span><br><span class="line">		this.handleClick=this.handleClick.bind(this);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	handleClick(e)&#123;</span><br><span class="line">		//e.stopPropagation();</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	render()&#123;</span><br><span class="line">		return(</span><br><span class="line">			&lt;button </span><br><span class="line">			onClick=&#123;this.handleClick&#125;</span><br><span class="line">			&gt;</span><br><span class="line">			Click me</span><br><span class="line">			&lt;/button&gt;</span><br><span class="line">		);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">ReactDOM.render(&lt;GrandPa/&gt;, document.getElementById(&apos;root&apos;));</span><br><span class="line"></span><br><span class="line">$(&apos;#jq-sonparent&apos;).on(&apos;click&apos;,function(e)&#123;</span><br><span class="line">	alert(1);</span><br><span class="line">	//e.stopPropagation();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>我们新建了<code>GrandPa</code>,<code>Dad</code>,<code>Son</code>三个组件,<code>Dad</code>组件中我们间接的嵌套了<code>Son</code>组件,然后在每一个阶层绑定了click事件.<br>当正常运行的时候,我们点击<code>Button</code>按钮时,<code>GrandPa</code>,<code>Dad</code>组件中的时间在更新,并且会弹出<code>1</code>的窗口.<br><br><br>我们在<code>Son</code>组件的<code>handleClick</code>方法中添加<code>e.stopPropagation();</code>方法,来阻止父元素的<code>click</code>事件的发生.点击<code>Button</code>按钮发现,<code>alert(1)</code>是可以弹出的,但是<code>GrandPa</code>和<code>Dad</code>组件的时间并没有变化.说明了React的合成事件并没有阻止JQ的click事件.<br><br><br>接下来我们再将<code>Son</code>组件的<code>handleClick</code>方法注释掉<code>e.stopPropagation()</code>. 然后在代码最下方的jq事件中添加<code>e.stopPropagation()</code>.这个时候我们点击<code>Button</code>按钮,会发现<code>GrandPa</code>,<code>Dad</code>组件中的时间并没有更新了,说明了jq事件中的<code>e.stopPropagation()</code>方法阻止了React组件中的click事件.</p>
+<p><br><br>在JQ和React中事件代理都会有一个<strong>up&amp;down</strong>的Queue的监听队列.一个元素触发,会从上至下的执行监听函数,模拟冒泡过程.</p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><ol>
+<li>合成事件对于原生事件无效.合成事件中的e.stopPropagation与原生事件中的e.stopPropagation并不是一回事.</li>
+<li>阻止原生事件可以阻止React合成事件.</li>
+<li>两者不要混合使用.</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    Mr.H
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://yoursite.com/2017/11/23/synthetic-event/" title="React的合成事件与原生事件">http://yoursite.com/2017/11/23/synthetic-event/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/22/learnning-English-everyday/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Mr.H" />
+            
+              <p class="site-author-name" itemprop="name">Mr.H</p>
+              <p class="site-description motion-element" itemprop="description">Code is poetry,Poetry is Beautiful.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/super-fool" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jsonkk@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#事件系统"><span class="nav-number">1.</span> <span class="nav-text">事件系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#合成事件-synthetic-event"><span class="nav-number">1.0.1.</span> <span class="nav-text">合成事件(synthetic event)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#React事件系统"><span class="nav-number">1.0.2.</span> <span class="nav-text">React事件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">1.0.3.</span> <span class="nav-text">结论</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mr.H</span>
+
+  
+</div>
+<!-- 隐藏footer-->
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.3</div>
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
