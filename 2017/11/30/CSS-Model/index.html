@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="CSS," />
 
 
 
@@ -86,16 +86,23 @@
 
 
 
-<meta name="description" content="Code is poetry,Poetry is Beautiful.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Mr.H Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="原理css 属性：Box Moel分为两种：W3C标准和IE标准盒子模型。大多数浏览器采用W3C标准模型，而IE中采用Microsoft自己的标准。怪异模式是“部分浏览器在支持W3C标准的同时还保留了原来的解析模式”，怪异模式主要表现再IE内核的浏览器。当不对Doctype进行定义时，会触发怪异模式。 在标准模式下，一">
+<meta name="keywords" content="CSS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS中盒模型基本概念">
+<meta property="og:url" content="http://yoursite.com/2017/11/30/CSS-Model/index.html">
 <meta property="og:site_name" content="Mr.H Blog">
-<meta property="og:description" content="Code is poetry,Poetry is Beautiful.">
+<meta property="og:description" content="原理css 属性：Box Moel分为两种：W3C标准和IE标准盒子模型。大多数浏览器采用W3C标准模型，而IE中采用Microsoft自己的标准。怪异模式是“部分浏览器在支持W3C标准的同时还保留了原来的解析模式”，怪异模式主要表现再IE内核的浏览器。当不对Doctype进行定义时，会触发怪异模式。 在标准模式下，一个块的总宽度=width+margin(左右)+padding(左右)+bord">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2017/11/30/img/ie-box.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/30/img/standard-box.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/30/img/1-1.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/30/img/1-2.png">
+<meta property="og:updated_time" content="2017-12-28T09:22:36.506Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mr.H Blog">
-<meta name="twitter:description" content="Code is poetry,Poetry is Beautiful.">
+<meta name="twitter:title" content="CSS中盒模型基本概念">
+<meta name="twitter:description" content="原理css 属性：Box Moel分为两种：W3C标准和IE标准盒子模型。大多数浏览器采用W3C标准模型，而IE中采用Microsoft自己的标准。怪异模式是“部分浏览器在支持W3C标准的同时还保留了原来的解析模式”，怪异模式主要表现再IE内核的浏览器。当不对Doctype进行定义时，会触发怪异模式。 在标准模式下，一个块的总宽度=width+margin(左右)+padding(左右)+bord">
+<meta name="twitter:image" content="http://yoursite.com/2017/11/30/img/ie-box.png">
 
 
 
@@ -125,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/11/30/CSS-Model/"/>
 
 
 
 
 
-  <title>Mr.H Blog</title>
+  <title>CSS中盒模型基本概念 | Mr.H Blog</title>
   
 
 
@@ -150,8 +157,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,9 +240,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -266,9 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/30/CSS-Model/" itemprop="url">CSS中盒模型基本概念</a></h1>
+          <h1 class="post-title" itemprop="name headline">CSS中盒模型基本概念</h1>
         
 
         <div class="post-meta">
@@ -340,18 +344,28 @@
       
 
       
-        
-          
-          原理css 属性：Box Moel分为两种：W3C标准和IE标准盒子模型。大多数浏览器采用W3C标准模型，而IE中采用Microsoft自己的标准。怪异模式是“部分浏览器在支持W3C标准的同时还保留了原来的解析模式”，怪异模式主要表现再IE内核的浏览器。当不对Doctype进行定义时，会触发怪异模式
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/30/CSS-Model/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>css 属性：Box Moel分为两种：W3C标准和IE标准盒子模型。<br>大多数浏览器采用W3C标准模型，而IE中采用Microsoft自己的标准。<br>怪异模式是“部分浏览器在支持W3C标准的同时还保留了原来的解析模式”，怪异模式主要表现再IE内核的浏览器。<br>当不对Doctype进行定义时，会触发怪异模式。</p>
+<p>在标准模式下，一个块的总宽度=width+margin(左右)+padding(左右)+border(左右)<br>在怪异模式下，一个块的总宽度=width+margin（左右）（既width已经包含了padding和border值）</p>
+<p><img src="../img/ie-box.png" alt=""></p>
+<p><img src="../img/standard-box.png" alt=""></p>
+<p>可以看的出来<b>IE盒子</b>的width是包含了border的宽度.而<b>标准盒子</b>的width没有包含border的宽度.</p>
+<hr>
+<p>这里我们针对标准盒子进行概念讲解:<br>如果把上图看做HTML里的一个标签div盒模型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;content&lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<p>OK!来戏弄一番这个盒子:</p>
+<ul>
+<li>div中的内容content就是图片中橘黄色的区域.</li>
+<li>只有内容才会有<code>width</code>,<code>height</code>属性,不包含边框!</li>
+<li>边框(border)就是图片中深蓝色的区域,它具有粗细的属性,<code>border-top</code>,<code>border-bottom</code>,<code>border-left</code>,<code>border-right</code>代表了上下左右的粗细程度.</li>
+<li>内容到边框的距离就是<code>padding</code>,也就是内边距,即黄色区域.</li>
+<li>最后就是<code>margin</code>,即外边距(原谅色区域), 它代表着<code>&lt;div&gt;</code>与旁边的元素或者是父元素的距离,<code>margin-top</code>,<code>margin-bottom</code>,<code>margin-left</code>,<code>margin-right</code>代表了上下左右的粗细程度.</li>
+</ul>
+<hr>
+<p><img src="../img/1-1.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">div1&#123;</span><br><span class="line">    width:80px;</span><br><span class="line">    height:80px;</span><br><span class="line">    padding:20px;</span><br><span class="line">    margin:5px,solid,red;</span><br><span class="line">&#125;</span><br><span class="line">div2&#123;</span><br><span class="line">    width:80px;</span><br><span class="line">    height:80px;</span><br><span class="line">    padding:0px;</span><br><span class="line">    margin:5px,solid,yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第一个红色div标签我给了它padding:20px;第二个黄色div标签给了它padding:0px;从图中明显可以看出2个div边框离文本的距离大小不同，也发现了2个div大小也不一样（padding撑开了容器），这就是padding，简称内边距。</p>
+<hr>
+<p><img src="../img/1-2.png" alt=""><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">div1&#123;</span><br><span class="line">    width:80px;</span><br><span class="line">    height:80px;</span><br><span class="line">    margin:20px;</span><br><span class="line">    border:5px solid red;</span><br><span class="line">&#125;</span><br><span class="line">div2&#123;</span><br><span class="line">    width:80px;</span><br><span class="line">    height:80px;</span><br><span class="line">    margin:0px;</span><br><span class="line">    border:5px solid yellow;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>图上面那条绿色作为基点，第一个红色div给了<code>margin:20px;</code>大家可以看到红色div到绿色的线有了一定的距离，红色div离黄色div也有一定的距离，这个距离就是margin:20px，简称外边距。</p>
+
       
     </div>
     
@@ -363,316 +377,44 @@
     
 
     
+      <div>
+        
+
+      </div>
+    
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/23/synthetic-event/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.H">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mr.H Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/23/synthetic-event/" itemprop="url">React的合成事件与原生事件</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-23T14:26:46+08:00">
-                2017-11-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/React/" itemprop="url" rel="index">
-                    <span itemprop="name">React</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/CSS/" rel="tag"># CSS</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-          事件系统合成事件(synthetic event)有些元素自身的处理事件都有其默认行为,比如&lt;/a&gt;,在onClick事件中,点击元素会跳转到新页面,而我们有时候需要禁用该行为.在DOM中,我们在事件中return false去禁用该行为.12345&lt;a 	href=&quot;#
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/23/synthetic-event/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/23/synthetic-event/" rel="next" title="React的合成事件与原生事件">
+                <i class="fa fa-chevron-left"></i> React的合成事件与原生事件
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/17/use hexo to build static blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.H">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mr.H Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/17/use hexo to build static blog/" itemprop="url">使用Hexo去搭建一个blog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-17T14:26:46+08:00">
-                2017-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">Hexo</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          以自己对hexo的了解去详解hexo
-创建一个新的帖子我们通过以下命令去创建相应的布局post:1$ hexo new [layout] &lt;title&gt;
-注意: 如果没有指定layout,则去_config.yml中读取default_layout属性的默认值
-LayoutLayout原
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/17/use hexo to build static blog/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -682,162 +424,11 @@ LayoutLayout原
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/17/array/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Mr.H">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Mr.H Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/17/array/" itemprop="url">数组的方法集合</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-17T14:26:46+08:00">
-                2017-11-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          总结一下Array的方法及讲解
-尾部添加元素,返回当前数组的长度
-123var fruits = [&apos;Apple&apos;, &apos;Banana&apos;];var addFruit = fruits.push(&apos;Orange&apos;);
-
-删除尾部元素，返回删除的
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/11/17/array/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -845,6 +436,10 @@ LayoutLayout原
 
 
           
+
+  
+
+
 
         </div>
         
@@ -865,8 +460,17 @@ LayoutLayout原
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -946,6 +550,22 @@ LayoutLayout原
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">1.</span> <span class="nav-text">原理</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1090,6 +710,10 @@ LayoutLayout原
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
