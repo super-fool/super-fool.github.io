@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="JavaScript,Array," />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -86,18 +86,20 @@
 
 
 
-<meta name="description" content="总结一下Array的方法及讲解 尾部添加元素,返回当前数组的长度 123var fruits = [&amp;apos;Apple&amp;apos;, &amp;apos;Banana&amp;apos;];var addFruit = fruits.push(&amp;apos;Orange&amp;apos;);">
-<meta name="keywords" content="JavaScript,Array">
+<meta name="description" content="How JavaScript Timers Work原文地址 在学习JavaScript的基础水平上, 清楚JavaScript的时间器如何工作是很重要的. 由于它们(时间器)都是处在各自的单线程中二导致行为不一致.我们来看三个函数,它们每一个函数都可以进行构建和操作时间器.  var id = setTimeout(">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数组的方法集合">
-<meta property="og:url" content="http://yoursite.com/2017/11/17/array/index.html">
+<meta property="og:title" content="JavaScript时间器">
+<meta property="og:url" content="http://yoursite.com/2017/12/29/How JavaScript Timers Work/index.html">
 <meta property="og:site_name" content="Mr.H Blog">
-<meta property="og:description" content="总结一下Array的方法及讲解 尾部添加元素,返回当前数组的长度 123var fruits = [&amp;apos;Apple&amp;apos;, &amp;apos;Banana&amp;apos;];var addFruit = fruits.push(&amp;apos;Orange&amp;apos;);  删除尾部元素，返回删除的元素（删除多个及返回一个数组） 1var removeLast = fruits.pop();  头">
+<meta property="og:description" content="How JavaScript Timers Work原文地址 在学习JavaScript的基础水平上, 清楚JavaScript的时间器如何工作是很重要的. 由于它们(时间器)都是处在各自的单线程中二导致行为不一致.我们来看三个函数,它们每一个函数都可以进行构建和操作时间器.  var id = setTimeout(fn, delay), 初始化一个构造器,它会在delay秒后去调用fn函数.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-11-20T02:42:45.747Z">
+<meta property="og:image" content="https://johnresig.com/files/Timers.png">
+<meta property="og:updated_time" content="2017-12-29T01:36:34.790Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数组的方法集合">
-<meta name="twitter:description" content="总结一下Array的方法及讲解 尾部添加元素,返回当前数组的长度 123var fruits = [&amp;apos;Apple&amp;apos;, &amp;apos;Banana&amp;apos;];var addFruit = fruits.push(&amp;apos;Orange&amp;apos;);  删除尾部元素，返回删除的元素（删除多个及返回一个数组） 1var removeLast = fruits.pop();  头">
+<meta name="twitter:title" content="JavaScript时间器">
+<meta name="twitter:description" content="How JavaScript Timers Work原文地址 在学习JavaScript的基础水平上, 清楚JavaScript的时间器如何工作是很重要的. 由于它们(时间器)都是处在各自的单线程中二导致行为不一致.我们来看三个函数,它们每一个函数都可以进行构建和操作时间器.  var id = setTimeout(fn, delay), 初始化一个构造器,它会在delay秒后去调用fn函数.">
+<meta name="twitter:image" content="https://johnresig.com/files/Timers.png">
 
 
 
@@ -127,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/11/17/array/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/29/How JavaScript Timers Work/"/>
 
 
 
 
 
-  <title>数组的方法集合 | Mr.H Blog</title>
+  <title>JavaScript时间器 | Mr.H Blog</title>
   
 
 
@@ -250,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/17/array/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/29/How JavaScript Timers Work/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Mr.H">
@@ -267,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数组的方法集合</h1>
+          <h1 class="post-title" itemprop="name headline">JavaScript时间器</h1>
         
 
         <div class="post-meta">
@@ -279,8 +281,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-17T14:26:46+08:00">
-                2017-11-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-29T00:00:00+08:00">
+                2017-12-29
               </time>
             
 
@@ -339,39 +341,32 @@
       
 
       
-        <h2 id="总结一下Array的方法及讲解"><a href="#总结一下Array的方法及讲解" class="headerlink" title="总结一下Array的方法及讲解"></a>总结一下Array的方法及讲解</h2><ol>
-<li><p>尾部添加元素,返回当前数组的长度</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var fruits = [&apos;Apple&apos;, &apos;Banana&apos;];</span><br><span class="line"></span><br><span class="line">var addFruit = fruits.push(&apos;Orange&apos;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除尾部元素，返回删除的元素（删除多个及返回一个数组）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var removeLast = fruits.pop();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>头部添加元素，返回当前数组的长度</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var addFruit1 = fruits.unshift(&apos;Strawberry&apos;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除头部元素，返回删除的元素（删除多个及返回一个数组）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var removeFirst = fruits.shift();</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取元素的索引</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var index = fruits.indexOf(&apos;Banana&apos;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>从索引位置删除几项，并在索引位置添加新元素,返回删除的元素</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var removedItems = fruits.splice(0, 1, &apos;Watermelon&apos;);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>复制数组，原数组改变时不会影响的复制数组。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var shallowCopy = fruits.slice();</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h3 id="mutator-methods-修改器-修改自身的方法"><a href="#mutator-methods-修改器-修改自身的方法" class="headerlink" title="mutator methods(修改器) 修改自身的方法"></a>mutator methods(修改器) 修改自身的方法</h3><ol>
-<li><p>将数组的一部分元素复制到同一数组指定位置，并返回原数组，而不修改其长度。arg:将被修改元素索引，修改元素头索引，修改元素尾索引。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&apos;alpha&apos;, &apos;beta&apos;, &apos;copy&apos;, &apos;delta&apos;].copyWithin(3, 0, 1);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>按照自定义函数排序，默认按照Unicode值排序。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function compareNumbers(a, b) &#123;</span><br><span class="line"></span><br><span class="line">    return Number(a) - Number(b);</span><br><span class="line">&#125;</span><br><span class="line">[&apos;1&apos;, 10, &apos;3&apos;, 15, 31].sort(compareNumbers);</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>下面的例子是一个对<strong>JSON</strong>进行排序:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">var items = [&#123;</span><br><span class="line">    name: &apos;Magnetic&apos;</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: &apos;Edward&apos;,</span><br><span class="line">    value: 21</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: &apos;Sharpe&apos;,</span><br><span class="line">    value: 37</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: &apos;And&apos;,</span><br><span class="line">    value: 45</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: &apos;The&apos;,</span><br><span class="line">    value: -12</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    name: &apos;Zeros&apos;,</span><br><span class="line">    value: 37</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//如果值不存在，就放在最下面，如果值较大返回1，进行反转排序，小于1，不动。</span><br><span class="line">items.sort(function(a, b) &#123;</span><br><span class="line">    a = a.value,</span><br><span class="line">    b = b.value</span><br><span class="line">    return !!a &amp;&amp; !!b ? a &gt; b ? -1 : a == b ? 0 : 1 : 1;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 需要被排序的数组</span><br><span class="line">var list = [&apos;Delta&apos;, &apos;alpha&apos;, &apos;CHARLIE&apos;, &apos;bravo&apos;];</span><br><span class="line"></span><br><span class="line">// 对需要排序的数字和位置的临时存储</span><br><span class="line">var mapped = list.map(function(el, i) &#123;</span><br><span class="line">  return &#123; index: i, value: el.toLowerCase() &#125;;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">// 按照多个值排序数组</span><br><span class="line">mapped.sort(function(a, b) &#123;</span><br><span class="line">  return +(a.value &gt; b.value) || +(a.value === b.value)-1;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">// 根据索引得到排序的结果</span><br><span class="line">var result = mapped.map(function(el)&#123;</span><br><span class="line">  return list[el.index];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h3 id="sccessor-methods-修改器-返回一个新数组的方法"><a href="#sccessor-methods-修改器-返回一个新数组的方法" class="headerlink" title="sccessor methods(修改器) 返回一个新数组的方法"></a>sccessor methods(修改器) 返回一个新数组的方法</h3><p>1.合并多个数组，并且不会去重。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var obj=&#123;a:1&#125;;</span><br><span class="line">var arr3=[1,&apos;1&apos;,2].concat([1,1,3],[,,,obj]);</span><br><span class="line">obj.a=2;</span><br><span class="line">console.log(arr3[arr3.length-1].a);</span><br><span class="line">//输出2，concat只是浅拷贝，对于含有对象的数组，只会拷贝对象的引用。</span><br></pre></td></tr></table></figure></p>
+        <h1 id="How-JavaScript-Timers-Work"><a href="#How-JavaScript-Timers-Work" class="headerlink" title="How JavaScript Timers Work"></a>How JavaScript Timers Work</h1><p><a href="https://johnresig.com/blog/how-javascript-timers-work/" target="_blank" rel="noopener">原文地址</a></p>
+<p>在学习JavaScript的基础水平上, 清楚JavaScript的时间器如何工作是很重要的. 由于它们(时间器)都是处在各自的单线程中二导致行为不一致.我们来看三个函数,它们每一个函数都可以进行构建和操作时间器.</p>
+<ul>
+<li><code>var id = setTimeout(fn, delay)</code>, 初始化一个构造器,它会在<code>delay</code>秒后去调用<code>fn</code>函数. 并且返回一个唯一ID,使用这个ID可以取消这个时间器.</li>
+<li><code>var id =setInterval(fn,delay)</code>, 和<code>setTimeout</code>相似,但是会持续调用<code>fn</code>(每次调用都是相隔<code>delay</code>秒),直到被取消.</li>
+<li><code>clearInterval(id); clearTimeout(id)</code>, 接受一个时间器的ID(上述任意一个函数的返回ID),然后从事件(occurring n.)中停止时间器的回调.</li>
+</ul>
+<p>为了了解时间器如何在内部工作,其中有一个重要的概念需要去探究(explored):<b>时间器的<code>delay</code>是不能保证的</b>. 这是因为在浏览器中所有的JavaScript只有在单线程中开放执行的异步事件(例如点击事件,时间器)运行时才会执行.<br><i>Since All JavaScript in a browser executes on a single thread asynchronous event only run when there’s been opening execution.</i> – <b>比较难翻译,所以贴出来</b><br>向下面的这站图表就是最好的展示(或者叫论证):<br><img src="https://johnresig.com/files/Timers.png" alt=""><br><a href="https://johnresig.com/files/Timers.png" target="_blank" rel="noopener">查看原图</a></p>
+<p>在这个图表(figure)中有许多信息需要消化(digest).理解它可以让你更好的明白JavaScript如何异步的执行工作. 这个图表是一个有维度的图表:我们有一个垂直的时间(wall clock=正常时间),它以毫秒为单位.蓝色区域代表JavaScript正在执行的部分.例如第一个JavaScript的蓝色块大约执行了18毫秒,鼠标点击事件大约执行了11毫秒,等等.</p>
+<p>由于JavaScript在一个时间内只能执行一部分代码(基于单线程机制),每一个块代码都会锁住其他异步事件的进度.这就意味着当一个异步事件发生时就会加入事件队列中进行排队稍后执行（由于线程模型是不能这样做的），而实际上，延时调用程序将会被插入队列，等待可调用时序时，被顺序执行。</p>
+<p>其次，我们在第一个代码块中，我们触发了一次点击操作。这个异步事件相关的回调函数，和定时器一样，也不会立即被执行，同样进入队列等待执行。</p>
+<p>当第一个Javascript代码块执行完成后，浏览器就会去问队列：接下来要执行什么？然而此时此刻，鼠标事件的句柄函数和定时器的延时调用函数都在等待。浏览器会在二者中选择一个（鼠标事件）立即执行。定时器的回调会等待下个时机，被按顺序调用。</p>
+<p>注意图中，在鼠标事件的回掉执行时，interval延时回掉被执行了。但是需要注意的时，当interval再次被出发时（当一个定时器的延时处理在执行的时候），这时候程序的处理将会被丢弃。假设当有大块的代码正在执行时，你又有一堆的interval延时调用在排队，你希望结果很可能就是这个大块的js代码执行完毕后，interval的延时调用会一个接一个的被触发，而且在执行时没有延时时间，也就是会被连续的调用。可是相反，浏览器往往只是等待，直到没有更多的interval处理程序进行排队。</p>
+<p>事实上，我们也可以看到，第三个interval回掉触发的时候，这个interval本身也在执行中。这就像我们展示了一个很重要的现象就是：interval 并不在乎当前谁正在执行，他们不分青红皂白地将排队，即使这意味着回调之间的时间将被牺牲。</p>
+<p>最后，当第二个interval回掉执行完成后，我们能看到，对于js引擎来说，没有需要去执行的东东了。这就意味着，浏览器在等待新的异步事件发生了。到第50秒时，这个interval被再次触发，这时候没有东西在阻塞执行，因此他会被立即调用。</p>
+<p>我们来用几行代码来更好的去分辨setInterval和setTimeout之间的区别:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function()&#123;</span><br><span class="line">    /* Some long block of code... */ </span><br><span class="line">    setTimeout(arguments.callee, 10); </span><br><span class="line">&#125;, 10);</span><br><span class="line"></span><br><span class="line">setInterval(function()&#123;</span><br><span class="line">    /* Some long block of code... */ </span><br><span class="line">&#125;, 10);</span><br></pre></td></tr></table></figure></p>
+<p>这两段代码乍一看似乎差不多，但事实上相差很多。有一点值得注意的是，在这里面的setTimeout，两个回掉执行的时间间隔至少会是10毫秒；而setInterval将尝试每10秒去执行一次，不去考虑上一次回掉是否已经完成。</p>
+<p>There’s a lot that we’ve learned here, let’s recap:</p>
+<ul>
+<li>Javascript是一个单线程执行的东东，迫使异步事件排队等待执行。</li>
+<li>setTimeout 与 setInterval执行代码的原理是完全不同的。</li>
+<li>当一个定时器执行被阻塞时，他会等待下一个可能执行的时机去执行，所以这个延时可能会比预先设定的时间要长。</li>
+<li>如果回调函数执行时间过长（长于定时器的延迟时间），“间隔定时器”有可能会一个接一个无间隔的执行</li>
+</ul>
+<p>补充的例子<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var die = false; </span><br><span class="line">setTimeout(function() &#123; </span><br><span class="line">    die = true; </span><br><span class="line">&#125;, 100);</span><br><span class="line"></span><br><span class="line">while(!die) &#123; &#125;</span><br><span class="line"></span><br><span class="line">console.log(&apos;done&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>如果你认为在100毫秒后，会打针done，说明你没有看懂此篇文章。你一定会觉得在100毫秒后，die的值变成true，然后console会被执行，如果你这样想那你就错了。记住setTimeout的准则是尽快执行，而不是立即执行。只有当主事件循环结束是，有时间片供setTimeout去执行时，定时器才会被执行。</p>
 
       
     </div>
@@ -396,8 +391,6 @@
           
             <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            <a href="/tags/Array/" rel="tag"># Array</a>
-          
         </div>
       
 
@@ -409,15 +402,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/11/30/CSS-Model/" rel="next" title="CSS中盒模型基本概念">
+                <i class="fa fa-chevron-left"></i> CSS中盒模型基本概念
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/17/use hexo to build static blog/" rel="prev" title="使用Hexo去搭建一个blog">
-                使用Hexo去搭建一个blog <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +562,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#总结一下Array的方法及讲解"><span class="nav-number">1.</span> <span class="nav-text">总结一下Array的方法及讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mutator-methods-修改器-修改自身的方法"><span class="nav-number">1.1.</span> <span class="nav-text">mutator methods(修改器) 修改自身的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sccessor-methods-修改器-返回一个新数组的方法"><span class="nav-number">1.2.</span> <span class="nav-text">sccessor methods(修改器) 返回一个新数组的方法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#How-JavaScript-Timers-Work"><span class="nav-number">1.</span> <span class="nav-text">How JavaScript Timers Work</span></a></li></ol></div>
             
 
           </div>
